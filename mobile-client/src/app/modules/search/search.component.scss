@@ -1,0 +1,23 @@
+.search-bar {
+    margin-top: 0;
+    margin-left: 0;
+    vertical-align: top;
+    horizontal-align: left;
+    padding-bottom: 10%;
+    width: 95%;
+}
+
+.options-button {
+    margin-top: 4;
+    vertical-align: top;
+    border-radius: 25;
+    color: rgb(7, 7, 7);
+    font-family: FontAwesome;
+    font-size: 24;
+    width: 44;
+    height: 44;
+}
+
+.options-button:active {
+    background-color: rgb(177, 175, 175);
+}

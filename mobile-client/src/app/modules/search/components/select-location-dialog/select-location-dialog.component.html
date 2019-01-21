@@ -1,0 +1,17 @@
+<StackLayout margin="24" horizontalAlignment="center" verticalAlignment="center" width="100%">
+    <Label class="h2" text="Wybór lokalizacji"></Label>
+
+    <TextField id="searchField" #searchField (textChange)="onTextChange($event)" returnKeyType="done" padding="8" 
+        marginTop="30" hint="Lokalizacja"></TextField>
+    <ListView #placesList [items]="items" (itemTap)="listViewItemTap($event); searchField.dismissSoftInput()" class="list-group">
+        <ng-template let-place="item" let-i="index" let-odd="odd" let-even="even">
+            <StackLayout orientation="horizontal" class="list-group-item">
+                <Label text="{{ place.formatted_address }}" textWrap="true" class="title"></Label>
+            </StackLayout>
+        </ng-template>
+    </ListView>
+    <StackLayout orientation="horizontal" marginTop="16">
+        <Button text="Moja lokalizacja" (tap)="currentLocationButtonTap()"></Button>
+        <Button text="OK" (tap)="closeDialog('SELECTED_LOCATION')"></Button>
+    </StackLayout>
+</StackLayout>

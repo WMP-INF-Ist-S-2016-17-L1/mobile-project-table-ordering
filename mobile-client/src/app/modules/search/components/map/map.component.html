@@ -1,0 +1,4 @@
+<MapView #MapView [latitude]="userLocation.lat" [longitude]="userLocation.lng" [zoom]="userLocation.zoom" [minZoom]="minZoom"
+    [maxZoom]="maxZoom" [bearing]="bearing" [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
+    (markerInfoWindowTapped)="onMarkerInfoWindowEvent($event)">
+</MapView>

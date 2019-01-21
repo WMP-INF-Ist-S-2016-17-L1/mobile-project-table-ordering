@@ -1,0 +1,11 @@
+ALTER TABLE `user`
+	ADD COLUMN `active` BIT(1) NOT NULL DEFAULT 1;
+
+ALTER TABLE `restaurant`
+	ADD COLUMN `active` BIT(1) NOT NULL DEFAULT 1;
+
+ALTER TABLE `reservation_request`
+	ADD COLUMN `active` BIT(1) NOT NULL DEFAULT 1;
+
+
+

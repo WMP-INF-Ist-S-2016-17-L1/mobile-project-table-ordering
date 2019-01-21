@@ -1,0 +1,39 @@
+<ActionBar class="action-bar">
+    <!-- 
+    Use the NavigationButton as a side-drawer button in Android
+    because ActionItems are shown on the right side of the ActionBar
+    -->
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <!-- 
+    Use the ActionItem for IOS with position set to left. Using the
+    NavigationButton as a side-drawer button in iOS is not possible,
+    because its function is to always navigate back in the application.
+    -->
+    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
+    </ActionItem>
+    <Label class="action-bar-title" text="Rejestracja"></Label>
+</ActionBar>
+
+<GridLayout class="page page-content">
+    <Label class="page-icon fa" text="&#xf084;"></Label>
+
+    <StackLayout class="input-field" style="margin-top: 20%;">
+        <TextField hint="Login" autocorrect="false" (textChange)="onTextChange($event)" class="input" id="userLogin"></TextField>
+    </StackLayout>
+
+    <StackLayout class="input-field" style="margin-top: 32%;">
+        <TextField hint="Hasło" #passwordField autocorrect="false" secure="true" (textChange)="onTextChange($event)"
+            class="input" id="userPassword"></TextField>
+    </StackLayout>
+
+    <StackLayout class="input-field" style="margin-top: 44%;">
+        <TextField hint="Powtórz Hasło" #passwordField autocorrect="false" secure="true" (textChange)="onTextChange($event)"
+            class="input" id="userPassword2"></TextField>
+        <Label class="h3" style="color:red; border: 1;text-align: center" [text]="'Hasła są różne'" *ngIf="userPassword !== userPassword2"></Label>
+    </StackLayout>
+    <StackLayout class="input-field" style="margin-top: 56%;">
+        <ListPicker [items]="roles" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)"></ListPicker>
+    </StackLayout>
+    <Button class="btn btn-primary btn-active common-btn" style="margin-top: 75%;" id="button" text="Zarejestruj się!"
+        (tap)="onButtonRegisterTap($event); passwordField.dismissSoftInput()" [isEnabled]="isFormValid()"></Button>
+</GridLayout>

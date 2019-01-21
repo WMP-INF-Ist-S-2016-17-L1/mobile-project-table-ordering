@@ -1,0 +1,9 @@
+<StackLayout margin="24" horizontalAlignment="center" verticalAlignment="center" width="100%" height="30%">
+
+    <Label class="h2" text="Szczegóły rezerwacji"></Label>
+
+    <Label class="h3" [text]="'Liczba osób: ' + reservation.numberOfPersons"></Label>
+
+    <Label class="h3 mt-15" textWrap="true" *ngFor="let item of reservation.notifications"
+        [text]="'Wiadomość restauratora: ' + item.message"></Label>
+</StackLayout>

@@ -1,0 +1,8 @@
+FROM gradle:4.10.0-jdk8-alpine
+ENV APP_HOME=/app
+WORKDIR $APP_HOME
+COPY build.gradle .
+COPY src ./src/
+EXPOSE 8080
+USER root
+CMD ["gradle", "bootRun", "--no-daemon"]

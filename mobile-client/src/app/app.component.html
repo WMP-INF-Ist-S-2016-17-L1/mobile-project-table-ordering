@@ -1,0 +1,59 @@
+<!--
+RadSideDrawer is a UI component part of the Progress NativeScript UI set of components.
+Learn more about the RadSideDrawer UI component and how it can be customized in this documentation article:
+http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawer/getting-started
+-->
+<RadSideDrawer [drawerTransition]="sideDrawerTransition">
+    <GridLayout tkDrawerContent rows="auto, *" class="sidedrawer sidedrawer-left">
+        <StackLayout row="0" class="sidedrawer-header" *ngIf="isLogged(); else emptySpace">
+            <Label class="sidedrawer-header-image fa" text="&#xf2bd;"></Label>
+            <Label class="sidedrawer-header-brand" text='{{getLoggedUserInfo().username}}'></Label>
+            <Label class="footnote" text='{{getLoggedUserInfo().role | rolename}}'></Label>
+        </StackLayout>
+
+        <ng-template #emptySpace>
+            <StackLayout row="0" class="sidedrawer-header"></StackLayout>
+        </ng-template>
+
+        <ScrollView row="1">
+            <StackLayout class="sidedrawer-content">
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/login')"
+                    (tap)="onNavItemTap('/login')" *ngIf="!isLogged()">
+                    <Label col="0" text="&#xf084;" class="fa"></Label>
+                    <Label col="1" text="Zaloguj się" class="p-r-10"></Label>
+                </GridLayout>
+
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/register')"
+                (tap)="onNavItemTap('/register')" *ngIf="!isLogged()">
+                <Label col="0" text="&#xf234;" class="fa"></Label>
+                <Label col="1" text="Zarejestruj się" class="p-r-10"></Label>
+            </GridLayout>
+
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/search')"
+                    (tap)="onNavItemTap('/search')">
+                    <Label col="0" text="&#xf002;" class="fa"></Label>
+                    <Label col="1" text="Szukaj" class="p-r-10"></Label>
+                </GridLayout>
+
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/reservations')"
+                    (tap)="onNavItemTap('/reservations')" *ngIf="isLogged()">
+                    <Label col="0" text="&#xf005;" class="fa"></Label>
+                    <Label col="1" text="Rezerwacje" class="p-r-10"></Label>
+                </GridLayout>
+
+                <StackLayout class="hr-light" *ngIf="isLogged()"></StackLayout>
+
+                <GridLayout columns="auto, *" *ngIf="isLogged()" class="sidedrawer-list-item" (tap)="logout()">
+                    <Label col="0" text="&#xf08b;" class="fa"></Label>
+                    <Label col="1" text="Wyloguj się" class="p-r-10"></Label>
+                </GridLayout>
+
+            </StackLayout>
+        </ScrollView>
+    </GridLayout>
+
+    <GridLayout tkMainContent>
+        <page-router-outlet class="page page-content"></page-router-outlet>
+        <ActivityIndicator [busy]="requestLoading" width="100" height="100" class="activity-indicator"></ActivityIndicator>
+    </GridLayout>
+</RadSideDrawer>

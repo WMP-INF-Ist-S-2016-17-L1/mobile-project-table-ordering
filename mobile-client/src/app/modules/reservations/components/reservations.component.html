@@ -1,0 +1,41 @@
+<ActionBar class="action-bar">
+    <!-- 
+    Use the NavigationButton as a side-drawer button in Android
+    because ActionItems are shown on the right side of the ActionBar
+    -->
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <!-- 
+    Use the ActionItem for IOS with position set to left. Using the
+    NavigationButton as a side-drawer button in iOS is not possible,
+    because its function is to always navigate back in the application.
+    -->
+    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
+    </ActionItem>
+    <Label class="action-bar-title" text="Rezerwacje"></Label>
+</ActionBar>
+
+<PullToRefresh (refresh)="refreshReservations($event)">
+    <ScrollView class="page page-content">
+        <StackLayout>
+            <CardView *ngFor="let reservation of userReservations" class="card" elevation="60" radius="10"
+                ios:shadowRadius="3" (tap)="openReservationDialog(reservation)">
+                <GridLayout columns="*, *, *" rows="40, 60, auto, *, *" class="card-layout">
+                    <Label text="&#xf165;" row="0" col="1" class="fa icon-circle rejected-icon" *ngIf="reservation.status === 'REJECTED_BY_RESTAURANT'"></Label>
+
+                    <Label text="&#xf087;" row="0" col="1" class="fa icon-circle accepted-icon" *ngIf="reservation.status === 'ACCEPTED_BY_RESTAURANT'"></Label>
+
+                    <Label text="&#xf0ec;" row="0" col="1" class="fa icon-circle pending-icon" *ngIf="reservation.status === 'SEND'"></Label>
+
+                    <Label [text]="'Data rezerwacji: ' + ((reservation.reservationDateTime | date:'medium')|| '')" row="1"
+                        col="0" textWrap="true"></Label>
+                    <Label [text]="'Data utworzenia: ' + ((reservation.createdDate | date:'medium')|| '')" row="1" col="3"
+                        textWrap="true"></Label>
+                    <Label class="h2" [text]="getCardName(reservation.restaurant)" row="2" colspan="3"></Label>
+                    <Label class="body" textWrap="true" [text]="getUserReservationMessage(reservation)" row="3" colspan="3"></Label>
+                    <Label class="body" textWrap="true" [text]="getReservationResponseMessage(reservation)" row="4"
+                        colspan="3" *ngIf="reservation.restaurateurMessage"></Label>
+                </GridLayout>
+            </CardView>
+        </StackLayout>
+    </ScrollView>
+</PullToRefresh>

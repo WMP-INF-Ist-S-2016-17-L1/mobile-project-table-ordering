@@ -1,0 +1,53 @@
+<ActionBar class="action-bar">
+    <!-- 
+    Use the NavigationButton as a side-drawer button in Android
+    because ActionItems are shown on the right side of the ActionBar
+    -->
+    <NavigationButton ios:visibility="collapsed" android.systemIcon="ic_menu_back" icon="res://menu" (tap)="goBack()"></NavigationButton>
+    <!-- 
+    Use the ActionItem for IOS with position set to left. Using the
+    NavigationButton as a side-drawer button in iOS is not possible,
+    because its function is to always navigate back in the application.
+    -->
+    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" ios.systemIcon="21" ios.position="left">
+    </ActionItem>
+    <Label class="action-bar-title" text="Dodaj rezerwacje"></Label>
+</ActionBar>
+
+<GridLayout class="page page-content">
+    <Label class="h3 p-10 m-10 text-left" textWrap="true">
+        <FormattedString fontSize="20">
+            <Span [text]="getPageTitle()"></Span>
+        </FormattedString>
+    </Label>
+
+    <StackLayout class="input-field">
+        <TextField #persons keyboardType="number" hint="Liczba osób" autocorrect="false" (textChange)="onTextChange($event)"
+            class="input input-border" id="numberOfPersons" style="margin-top: 20%;" returnKeyType="done" [(ngModel)]="reservation.numberOfPersons"
+            required>
+        </TextField>
+    </StackLayout>
+
+    <StackLayout class="input-field">
+        <TextField hint="Data" [text]="reservation.date | date:'mediumDate'" (tap)="pickDate()" editable="false"
+            autocorrect="false" class="input input-border" id="date" marginBottom="25" style="margin-top: 35%;"
+            keyboardType="datetime" returnKeyType="next" #date [(ngModel)]="reservation.time" required>
+        </TextField>
+    </StackLayout>
+
+    <StackLayout class="input-field">
+        <TextField hint="Godzina" [text]="reservation.time | date:'h:mm a z'" (tap)="pickTime()" editable="false"
+            autocorrect="false" class="input input-border" id="time" marginBottom="25" style="margin-top: 50%;"
+            keyboardType="datetime" returnKeyType="next" [(ngModel)]="reservation.time" #time required>
+        </TextField>
+    </StackLayout>
+
+    <StackLayout class="input-field">
+        <TextField #dateAndTime hint="Wiadomość" autocorrect="false" returnKeyType="send" class="input input-border" id="message"
+            style="margin-top: 65%;" (textChange)="onTextChange($event)"></TextField>
+    </StackLayout>
+
+    <Button text="Dokonaj rezerwacji" (tap)="submitReservation()" class="btn btn-primary btn-active" height="60" style="margin-top: 80%;"
+        [isEnabled]="isFormValid()">
+    </Button>
+</GridLayout>
